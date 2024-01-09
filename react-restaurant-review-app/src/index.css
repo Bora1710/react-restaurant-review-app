@@ -1,1 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
 
+:root {
+  --white: white;
+  --black: black;
+  --gray: #878787;
+  --purple: #4361fc;
+  --background-white: #f9f9f9;
+  font-family: Poppins;
+}
+
+::placeholder {
+  color: var(--gray);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  padding-left: 28px;
+}

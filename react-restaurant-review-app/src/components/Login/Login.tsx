@@ -1,13 +1,16 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
 import restaurnatImage from "../../assets/images/019a0242b61b695b45ca70321ca186a0.jfif";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({ userName: "", password: "" });
   const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
   function handleFormChange(event: any) {
     const { name, value } = event.target;
+
     setFormData((prevValue) => {
       return { ...prevValue, [name]: value };
     });
@@ -29,6 +32,10 @@ export default function Login() {
       })
       .catch((error) => console.error("Error:", error));
   }
+
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
 
   return (
     <div className={styles.container}>
@@ -55,6 +62,12 @@ export default function Login() {
           name="password"
         ></input>
         <button className={styles.submitButton}>Submit</button>
+        <p className={styles.registerCheck}>
+          Don't have an account?
+          <a className={styles.link} onClick={handleRegisterClick}>
+            Register
+          </a>
+        </p>
       </form>
     </div>
   );

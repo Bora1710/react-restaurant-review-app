@@ -4,6 +4,7 @@ import restaurnatImage from "../../assets/images/019a0242b61b695b45ca70321ca186a
 
 export default function Login() {
   const [formData, setFormData] = useState({ userName: "", password: "" });
+  const [userData, setUserData] = useState({});
 
   function handleFormChange(event: any) {
     const { name, value } = event.target;
@@ -15,9 +16,20 @@ export default function Login() {
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    console.log("Username:", formData.userName);
-    console.log("Password:", formData.password);
+    fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setUserData(json);
+      })
+      .catch((error) => console.error("Error:", error));
   }
+
   return (
     <div className={styles.container}>
       <img

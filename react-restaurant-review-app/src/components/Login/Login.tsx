@@ -55,6 +55,9 @@ export default function Login() {
         alt="Restaurant-img"
       />
       <form onSubmit={handleSubmit}>
+        <h2>Welcome !</h2>
+        <h1>Log in to</h1>
+        <h3>Restaurant review is simply</h3>
         <label htmlFor="userName">Username:</label>
         <input
           id="userName"

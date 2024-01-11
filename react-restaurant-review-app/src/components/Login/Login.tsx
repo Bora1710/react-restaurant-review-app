@@ -2,10 +2,16 @@ import { useState } from "react";
 import styles from "./Login.module.css";
 import restaurnatImage from "../../assets/images/019a0242b61b695b45ca70321ca186a0.jfif";
 import { useNavigate } from "react-router-dom";
+import { User } from "../../models/user";
 
 export default function Login() {
   const [formData, setFormData] = useState({ userName: "", password: "" });
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState<User>({
+    id: "",
+    password: "",
+    userName: "",
+    role: 0,
+  });
   const navigate = useNavigate();
 
   function handleFormChange(event: any) {
@@ -27,8 +33,12 @@ export default function Login() {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((json) => {
-        setUserData(json);
+      .then((res) => {
+        if (res.isSuccess) {
+          setUserData(res.payLoad.user);
+          navigate("/restaurants");
+          localStorage.setItem("token", res.payLoad.token);
+        }
       })
       .catch((error) => console.error("Error:", error));
   }

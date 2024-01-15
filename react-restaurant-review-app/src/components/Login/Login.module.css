@@ -36,32 +36,6 @@ input {
   margin-top: 80px;
 }
 
-h1 {
-  font-size: 32px;
-  font-weight: 500;
-  margin-top: 28px;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 300;
-  margin-top: 0px;
-}
-
-h3 {
-  margin-top: -20px;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-h1,
-h2,
-h3 {
-  color: var(--black);
-  font-style: normal;
-  line-height: normal;
-}
-
 .link {
   color: var(--purple);
   font-size: 16px;

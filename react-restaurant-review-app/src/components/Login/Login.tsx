@@ -14,7 +14,7 @@ export default function Login() {
   });
   const navigate = useNavigate();
 
-  function handleFormChange(event: any) {
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
 
     setFormData((prevValue) => {

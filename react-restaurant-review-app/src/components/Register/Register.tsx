@@ -2,6 +2,7 @@ import { useState } from "react";
 import { User } from "../../models/user";
 import { post } from "../../utils/service";
 import { useNavigate } from "react-router-dom";
+import styles from "./Register.module.css";
 
 export default function Register() {
   const [formData, setFormData] = useState<User>({
@@ -31,7 +32,7 @@ export default function Register() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="userName">Username:</label>
         <input
           id="userName"

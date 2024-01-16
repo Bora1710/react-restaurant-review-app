@@ -3,9 +3,15 @@ import styles from "./Login.module.css";
 import restaurnatImage from "../../assets/images/019a0242b61b695b45ca70321ca186a0.jfif";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../models/user";
+import { post } from "../../utils/service";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ userName: "", password: "" });
+  const [formData, setFormData] = useState<User>({
+    id: "",
+    password: "",
+    userName: "",
+    role: 0,
+  });
   const [userData, setUserData] = useState<User>({
     id: "",
     password: "",
@@ -22,25 +28,18 @@ export default function Login() {
     });
   }
 
-  function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    let response = await post<User, { user: User; token: string }>(
+      "login",
+      formData
+    );
 
-    fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.isSuccess) {
-          setUserData(res.payLoad.user);
-          navigate("/restaurants");
-          localStorage.setItem("token", res.payLoad.token);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+    if (response) {
+      setUserData(response.user);
+      navigate("/restaurants");
+      localStorage.setItem("token", response.token);
+    }
   }
 
   const handleRegisterClick = () => {

@@ -74,7 +74,7 @@ export default function Login() {
           onChange={handleFormChange}
           name="password"
         ></input>
-        <button className={styles.submitButton}>Submit</button>
+        <button className="submitButton">Log In</button>
         <p className={styles.registerCheck}>
           Don't have an account?
           <a className={styles.link} onClick={handleRegisterClick}>

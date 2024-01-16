@@ -32,7 +32,7 @@ export default function Register() {
           onChange={handleFormChange}
           name="password"
         ></input>
-        <button>Submit</button>;
+        <button className="submitButton">Register</button>;
       </form>
     </>
   );

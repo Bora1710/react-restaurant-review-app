@@ -24,18 +24,6 @@ input {
   padding: 0;
 }
 
-.submitButton {
-  height: 60px;
-  align-items: flex-start;
-  width: 100%;
-  gap: 10px;
-  background: var(--purple);
-  color: white;
-  border-radius: 8px;
-  border: 0.6px solid var(--purple);
-  margin-top: 80px;
-}
-
 .link {
   color: var(--purple);
   font-size: 16px;

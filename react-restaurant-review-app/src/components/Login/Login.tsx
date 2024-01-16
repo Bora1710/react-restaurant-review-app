@@ -10,13 +10,13 @@ export default function Login() {
     id: "",
     password: "",
     userName: "",
-    role: 0,
+    role: 2,
   });
   const [userData, setUserData] = useState<User>({
     id: "",
     password: "",
     userName: "",
-    role: 0,
+    role: 2,
   });
   const navigate = useNavigate();
 

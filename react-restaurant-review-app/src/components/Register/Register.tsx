@@ -1,17 +1,33 @@
 import { useState } from "react";
 import { User } from "../../models/user";
+import { post } from "../../utils/service";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [formData, setFormData] = useState<User>({
     id: "",
     userName: "",
     password: "",
-    role: 0,
+    role: 2,
   });
+  const navigate = useNavigate();
 
-  function handleFormChange() {}
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
 
-  function handleSubmit() {}
+    setFormData((prevValue) => {
+      return { ...prevValue, [name]: value };
+    });
+  }
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    let response = await post<User, { id: string }>("register", formData);
+
+    if (response) {
+      navigate("/login");
+    }
+  }
 
   return (
     <>

@@ -37,8 +37,8 @@ export default function Login() {
 
     if (response) {
       setUserData(response.user);
-      navigate("/restaurants");
       localStorage.setItem("token", response.token);
+      navigate("/restaurants");
     }
   }
 

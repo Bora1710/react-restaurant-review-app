@@ -3,18 +3,24 @@ import styles from "./Login.module.css";
 import restaurnatImage from "../../assets/images/019a0242b61b695b45ca70321ca186a0.jfif";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../models/user";
+import { post } from "../../utils/service";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ userName: "", password: "" });
+  const [formData, setFormData] = useState<User>({
+    id: "",
+    password: "",
+    userName: "",
+    role: 2,
+  });
   const [userData, setUserData] = useState<User>({
     id: "",
     password: "",
     userName: "",
-    role: 0,
+    role: 2,
   });
   const navigate = useNavigate();
 
-  function handleFormChange(event: any) {
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
 
     setFormData((prevValue) => {
@@ -22,25 +28,18 @@ export default function Login() {
     });
   }
 
-  function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    let response = await post<User, { user: User; token: string }>(
+      "login",
+      formData
+    );
 
-    fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.isSuccess) {
-          setUserData(res.payLoad.user);
-          navigate("/restaurants");
-          localStorage.setItem("token", res.payLoad.token);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+    if (response) {
+      setUserData(response.user);
+      localStorage.setItem("token", response.token);
+      navigate("/restaurants");
+    }
   }
 
   const handleRegisterClick = () => {
@@ -74,7 +73,7 @@ export default function Login() {
           onChange={handleFormChange}
           name="password"
         ></input>
-        <button className={styles.submitButton}>Submit</button>
+        <button className="submitButton">Log In</button>
         <p className={styles.registerCheck}>
           Don't have an account?
           <a className={styles.link} onClick={handleRegisterClick}>
